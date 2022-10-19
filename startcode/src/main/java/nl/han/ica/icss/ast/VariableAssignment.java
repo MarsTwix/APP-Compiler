@@ -2,8 +2,10 @@ package nl.han.ica.icss.ast;
 
 import nl.han.ica.icss.ast.types.ExpressionType;
 import nl.han.ica.icss.checker.Checker;
+import nl.han.ica.icss.transforms.Evaluator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -63,6 +65,11 @@ public class VariableAssignment extends ASTNode {
 		if(!expression.hasError()){
 			Checker.addVariable(name.name, type);
 		}
+	}
 
+	@Override
+	public ArrayList<ASTNode> transform() {
+		Evaluator.variableValues.getFirst().put(name.name, expression.getLiteral());
+		return new ArrayList<>(Arrays.asList(this));
 	}
 }

@@ -85,4 +85,8 @@ public class ASTNode {
 
     public void check() {
     }
+
+    public ArrayList<ASTNode> transform() {
+        return new ArrayList<>();
+    }
 }

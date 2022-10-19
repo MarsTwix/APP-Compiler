@@ -39,4 +39,14 @@ public class ScalarLiteral extends Literal {
     public ExpressionType getExpressionType() {
         return ExpressionType.SCALAR;
     }
+
+    @Override
+    public Literal getLiteral() {
+        return this;
+    }
+
+    @Override
+    public String getValue() {
+        return Integer.toString(value);
+    }
 }

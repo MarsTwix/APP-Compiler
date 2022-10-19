@@ -2,6 +2,7 @@ package nl.han.ica.icss.ast;
 
 import nl.han.ica.icss.ast.types.ExpressionType;
 import nl.han.ica.icss.checker.Checker;
+import nl.han.ica.icss.transforms.Evaluator;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -91,5 +92,19 @@ public class IfClause extends ASTNode {
         if (elseClause != null) {
             elseClause.check();
         }
+    }
+
+    @Override
+    public ArrayList<ASTNode> transform() {
+
+        if(conditionalExpression.getLiteral().getValue().equals("TRUE")){
+            Evaluator.addScope();
+            Evaluator.transformAndReplace(body);
+            Evaluator.removeScope();
+            return body;
+        }else if(elseClause!=null){
+            return elseClause.transform();
+        }
+        return body;
     }
 }

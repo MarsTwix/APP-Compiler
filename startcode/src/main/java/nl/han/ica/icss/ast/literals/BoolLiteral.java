@@ -38,4 +38,14 @@ public class BoolLiteral extends Literal {
     public ExpressionType getExpressionType() {
         return ExpressionType.BOOL;
     }
+
+    @Override
+    public Literal getLiteral() {
+        return this;
+    }
+
+    @Override
+    public String getValue() {
+        return value ? "TRUE" : "FALSE";
+    }
 }

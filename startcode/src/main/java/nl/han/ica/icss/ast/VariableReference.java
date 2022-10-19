@@ -2,6 +2,7 @@ package nl.han.ica.icss.ast;
 
 import nl.han.ica.icss.ast.types.ExpressionType;
 import nl.han.ica.icss.checker.Checker;
+import nl.han.ica.icss.transforms.Evaluator;
 
 import java.util.Objects;
 
@@ -48,5 +49,10 @@ public class VariableReference extends Expression {
 	public ExpressionType getExpressionType() {
 		check();
 		return expressionType;
+	}
+
+	@Override
+	public Literal getLiteral() {
+		return Evaluator.getVariableValue(name).getLiteral();
 	}
 }

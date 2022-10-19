@@ -1,6 +1,7 @@
 package nl.han.ica.icss.ast;
 
 import nl.han.ica.icss.checker.Checker;
+import nl.han.ica.icss.transforms.Evaluator;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -54,5 +55,13 @@ public class ElseClause extends ASTNode{
         Checker.addScope();
         getChildren().forEach(ASTNode::check);
         Checker.removeScope();
+    }
+
+    @Override
+    public ArrayList<ASTNode> transform() {
+        Evaluator.addScope();
+        Evaluator.transformAndReplace(body);
+        Evaluator.removeScope();
+        return body;
     }
 }

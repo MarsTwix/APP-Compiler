@@ -2,6 +2,8 @@ package nl.han.ica.icss.ast;
 
 import nl.han.ica.icss.checker.Checker;
 import nl.han.ica.icss.checker.SemanticError;
+import nl.han.ica.icss.transforms.Evaluator;
+
 import static nl.han.ica.icss.checker.Checker.*;
 
 import java.util.ArrayList;
@@ -63,5 +65,13 @@ public class Stylesheet extends ASTNode {
 		getChildren().forEach(ASTNode::check);
 
 		Checker.removeScope();
+	}
+
+	@Override
+	public ArrayList<ASTNode> transform() {
+		Evaluator.addScope();
+		getChildren().forEach(ASTNode::transform);
+		Evaluator.removeScope();
+		return body;
 	}
 }
