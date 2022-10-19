@@ -6,5 +6,7 @@ public abstract class Expression extends ASTNode {
     ExpressionType expressionType;
     public abstract ExpressionType getExpressionType();
 
-    public abstract Literal getLiteral();
+    public Literal getLiteral(){
+        return null;
+    }
 }

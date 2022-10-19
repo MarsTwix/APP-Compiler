@@ -1,5 +1,6 @@
 package nl.han.ica.icss.ast;
 
+import nl.han.ica.icss.ast.literals.BoolLiteral;
 import nl.han.ica.icss.ast.types.ExpressionType;
 import nl.han.ica.icss.checker.Checker;
 import nl.han.ica.icss.transforms.Evaluator;
@@ -97,7 +98,7 @@ public class IfClause extends ASTNode {
     @Override
     public ArrayList<ASTNode> transform() {
 
-        if(conditionalExpression.getLiteral().getValue().equals("TRUE")){
+        if(((BoolLiteral) conditionalExpression).value){
             Evaluator.addScope();
             Evaluator.transformAndReplace(body);
             Evaluator.removeScope();
