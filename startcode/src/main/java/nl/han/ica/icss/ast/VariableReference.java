@@ -1,5 +1,8 @@
 package nl.han.ica.icss.ast;
 
+import nl.han.ica.icss.ast.types.ExpressionType;
+import nl.han.ica.icss.checker.Checker;
+
 import java.util.Objects;
 
 public class VariableReference extends Expression {
@@ -29,5 +32,21 @@ public class VariableReference extends Expression {
 	public int hashCode() {
 
 		return Objects.hash(name);
+	}
+
+	@Override
+	public void check() {
+			ExpressionType type = Checker.getVariableType(name);
+			if (type == null) {
+				setError("Variable " + name + " is not defined");
+			} else {
+				expressionType = type;
+			}
+	}
+
+	@Override
+	public ExpressionType getExpressionType() {
+		check();
+		return expressionType;
 	}
 }

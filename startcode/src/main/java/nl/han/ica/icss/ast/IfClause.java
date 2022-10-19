@@ -1,5 +1,8 @@
 package nl.han.ica.icss.ast;
 
+import nl.han.ica.icss.ast.types.ExpressionType;
+import nl.han.ica.icss.checker.Checker;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -75,4 +78,18 @@ public class IfClause extends ASTNode {
         return conditionalExpression;
     }
     public ElseClause getElseClause() { return elseClause; }
+
+    @Override
+    public void check() {
+        if (conditionalExpression.getExpressionType() != ExpressionType.BOOL) {
+            setError("Conditional expression must be of type bool");
+        }
+        Checker.addScope();
+        getChildren().forEach(ASTNode::check);
+        ElseClause elseClause = getElseClause();
+        Checker.removeScope();
+        if (elseClause != null) {
+            elseClause.check();
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package nl.han.ica.icss.ast;
 
+import nl.han.ica.icss.checker.Checker;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -47,6 +49,10 @@ public class ElseClause extends ASTNode{
         return Objects.hash(body);
     }
 
-
-
+    @Override
+    public void check() {
+        Checker.addScope();
+        getChildren().forEach(ASTNode::check);
+        Checker.removeScope();
+    }
 }

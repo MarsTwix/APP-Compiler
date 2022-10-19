@@ -82,4 +82,7 @@ public class ASTNode {
         }
         return true;
     }
+
+    public void check() {
+    }
 }

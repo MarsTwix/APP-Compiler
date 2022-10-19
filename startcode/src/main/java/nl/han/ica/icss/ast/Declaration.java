@@ -1,5 +1,9 @@
 package nl.han.ica.icss.ast;
 
+import nl.han.ica.icss.ast.literals.ColorLiteral;
+import nl.han.ica.icss.ast.literals.PercentageLiteral;
+import nl.han.ica.icss.ast.literals.PixelLiteral;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -54,5 +58,16 @@ public class Declaration extends ASTNode {
 	@Override
 	public int hashCode() {
 		return Objects.hash(property, expression);
+	}
+
+	@Override
+	public void check() {
+		if( !(property.name.equals("color") || property.name.equals("background-color")) && expression instanceof ColorLiteral){
+			this.setError("Color literals are not allowed in this property");
+		} else if ( !(property.name.equals("width") || property.name.equals("height")) && (expression instanceof PercentageLiteral || expression instanceof PixelLiteral) ){
+			this.setError("Percentage literals are not allowed in this property");
+		}
+
+		getChildren().forEach(ASTNode::check);
 	}
 }
