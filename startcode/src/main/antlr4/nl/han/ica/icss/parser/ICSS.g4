@@ -12,10 +12,11 @@ BOX_BRACKET_CLOSE: ']';
 //Literals
 TRUE: 'TRUE';
 FALSE: 'FALSE';
-PIXELSIZE: [0-9]+ 'px';
-PERCENTAGE: [0-9]+ '%';
-SCALAR: [0-9]+;
+PIXELSIZE: NUMBER 'px';
+PERCENTAGE: NUMBER '%';
+SCALAR: NUMBER;
 
+NUMBER: [0] | [1-9] [0-9]*;
 
 //Color value takes precedence over id idents
 COLOR: '#' [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f] [0-9a-f];
@@ -55,11 +56,8 @@ variableAssignment: variableReference ASSIGNMENT_OPERATOR variableValue SEMICOLO
 variableReference: CAPITAL_IDENT;
 variableValue: value | operation;
 
-operation: addOperation | subtractOperation | multiplyOperation;
-addOperation: operationValue PLUS loopOperation;
-subtractOperation: operationValue MIN loopOperation;
-multiplyOperation: operationValue MUL loopOperation;
-loopOperation: operation | operationValue ;
+
+operation: operation multiply operation | operation (add | subtract) operation | operationValue;
 
 value : operationValue | booleanValue;
 operationValue: propertyValue | scalarValue;
@@ -69,6 +67,11 @@ percentageValue: PERCENTAGE;
 colorValue: COLOR;
 booleanValue: TRUE | FALSE;
 scalarValue: SCALAR;
+
+multiply: MUL;
+add: PLUS;
+subtract: MIN;
+
 
 ifClause: IF BOX_BRACKET_OPEN (variableReference | booleanValue) BOX_BRACKET_CLOSE OPEN_BRACE body CLOSE_BRACE elseClause?;
 elseClause: ELSE OPEN_BRACE body CLOSE_BRACE;
