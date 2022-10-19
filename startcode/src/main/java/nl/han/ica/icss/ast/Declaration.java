@@ -85,4 +85,9 @@ public class Declaration extends ASTNode {
 
 		return new ArrayList<>(Arrays.asList(this));
 	}
+
+	@Override
+	public String generate() {
+		return "  " + property.name + ": " + expression.generate() + ";\n";
+	}
 }

@@ -89,4 +89,8 @@ public class ASTNode {
     public ArrayList<ASTNode> transform() {
         return new ArrayList<>();
     }
+
+    public String generate() {
+        return "";
+    }
 }

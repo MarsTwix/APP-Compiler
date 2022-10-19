@@ -71,4 +71,14 @@ public class Stylerule extends ASTNode {
 		Evaluator.removeScope();
 		return body;
 	}
+
+	@Override
+	public String generate() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(selectors.get(0).generate());
+		sb.append(" {\n");
+		body.forEach(node -> sb.append(node.generate()));
+		sb.append("}\n\n");
+		return sb.toString();
+	}
 }

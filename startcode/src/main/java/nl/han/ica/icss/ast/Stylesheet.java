@@ -74,4 +74,13 @@ public class Stylesheet extends ASTNode {
 		Evaluator.removeScope();
 		return body;
 	}
+
+	@Override
+	public String generate() {
+		StringBuilder sb = new StringBuilder();
+		for (ASTNode node : body) {
+			sb.append(node.generate());
+		}
+		return sb.toString();
+	}
 }
