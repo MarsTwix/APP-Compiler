@@ -34,11 +34,6 @@ public class ASTListener extends ICSSBaseListener {
         return ast;
     }
 
-//	@Override
-//	public void exitEveryRule(ParserRuleContext ctx) {
-//		System.out.println("exitEveryRule: " + ctx.getText());
-//	}
-
 
 	@Override
 	public void enterStylesheet(ICSSParser.StylesheetContext ctx) {
