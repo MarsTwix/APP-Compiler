@@ -105,6 +105,6 @@ public class IfClause extends ASTNode {
         }else if(elseClause!=null){
             return elseClause.transform();
         }
-        return body;
+        return new ArrayList<>();
     }
 }
