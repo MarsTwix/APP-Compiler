@@ -44,7 +44,7 @@ public class PercentageLiteral extends Literal {
     }
 
     @Override
-    public String getValue() {
-        return value + "%";
+    public int getValue() {
+        return value;
     }
 }

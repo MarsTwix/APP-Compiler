@@ -35,6 +35,11 @@ public abstract class Operation extends Expression {
 
     @Override
     public void check() {
+        if(lhs instanceof Operation) {
+            lhs.check();
+        }else if(rhs instanceof Operation) {
+            rhs.check();
+        }
         String operation = operationType.toString().toLowerCase();
         if (lhs.getExpressionType() == ExpressionType.COLOR || rhs.getExpressionType() == ExpressionType.COLOR) {
             setError("Cannot " + operation + " color");

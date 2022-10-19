@@ -35,6 +35,10 @@ public class Evaluator implements Transform {
         variableValues.removeFirst();
     }
 
+    public static void addVariable(String name, Literal value) {
+        variableValues.getFirst().put(name, value);
+    }
+
     public static Literal getVariableValue(String name) {
         for(int i = 0; i < variableValues.getSize(); i++) {
             if(variableValues.get(i).containsKey(name)) {
@@ -47,11 +51,9 @@ public class Evaluator implements Transform {
     public static void transformAndReplace(ArrayList<ASTNode> body){
         for (int i = 0; i < body.size(); i++) {
             ASTNode child = body.get(i);
-            if (child instanceof IfClause || child instanceof VariableAssignment) {
                 ArrayList<ASTNode> transformed = child.transform();
                 body.remove(i);
                 body.addAll(i, transformed);
-            }
         }
     }
     

@@ -8,8 +8,6 @@ import java.util.Objects;
 public class ScalarLiteral extends Literal {
     public int value;
 
-
-
     public ScalarLiteral(int value) {
         this.value = value;
     }
@@ -46,7 +44,7 @@ public class ScalarLiteral extends Literal {
     }
 
     @Override
-    public String getValue() {
-        return Integer.toString(value);
+    public int getValue() {
+        return value;
     }
 }

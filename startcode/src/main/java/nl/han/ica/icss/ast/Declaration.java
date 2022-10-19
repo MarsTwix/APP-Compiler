@@ -3,8 +3,12 @@ package nl.han.ica.icss.ast;
 import nl.han.ica.icss.ast.literals.ColorLiteral;
 import nl.han.ica.icss.ast.literals.PercentageLiteral;
 import nl.han.ica.icss.ast.literals.PixelLiteral;
+import nl.han.ica.icss.ast.types.ExpressionType;
+import nl.han.ica.icss.checker.Checker;
+import nl.han.ica.icss.transforms.Evaluator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 /*
@@ -68,6 +72,17 @@ public class Declaration extends ASTNode {
 			this.setError("Percentage literals are not allowed in this property");
 		}
 
-		getChildren().forEach(ASTNode::check);
+		if(expression instanceof Operation || expression instanceof VariableReference){
+			expression.check();
+		}
+
+	}
+
+	@Override
+	public ArrayList<ASTNode> transform() {
+		Literal literal = expression.getLiteral();
+		expression = literal;
+
+		return new ArrayList<>(Arrays.asList(this));
 	}
 }

@@ -97,8 +97,9 @@ public class IfClause extends ASTNode {
 
     @Override
     public ArrayList<ASTNode> transform() {
+        BoolLiteral literal = (BoolLiteral) conditionalExpression.getLiteral();
 
-        if(((BoolLiteral) conditionalExpression).value){
+        if(literal.value){
             Evaluator.addScope();
             Evaluator.transformAndReplace(body);
             Evaluator.removeScope();

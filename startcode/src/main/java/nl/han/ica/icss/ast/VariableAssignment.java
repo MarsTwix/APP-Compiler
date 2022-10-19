@@ -61,15 +61,19 @@ public class VariableAssignment extends ASTNode {
 
 	@Override
 	public void check() {
-		ExpressionType type = expression.getExpressionType();
+		expression.check();
 		if(!expression.hasError()){
-			Checker.addVariable(name.name, type);
+			Checker.addVariable(name.name, expression.getExpressionType());
 		}
 	}
 
 	@Override
 	public ArrayList<ASTNode> transform() {
-		Evaluator.variableValues.getFirst().put(name.name, expression.getLiteral());
+
+		Literal literal = expression.getLiteral();
+		Evaluator.addVariable(name.name, literal);
+		expression = literal;
+
 		return new ArrayList<>(Arrays.asList(this));
 	}
 }
